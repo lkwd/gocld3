@@ -1,3 +1,3 @@
-module github.com/vpol/gocld3
+module github.com/lkwd/gocld3
 
-go 1.13
+go 1.15
