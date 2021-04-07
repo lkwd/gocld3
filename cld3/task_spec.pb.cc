@@ -11,112 +11,91 @@
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_task_5fspec_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TaskInput_task_5fspec_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_task_5fspec_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TaskInput_Part_task_5fspec_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_task_5fspec_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TaskOutput_task_5fspec_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_task_5fspec_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TaskSpec_Parameter_task_5fspec_2eproto;
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace chrome_lang_id {
-class TaskInput_PartDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TaskInput_Part> _instance;
-} _TaskInput_Part_default_instance_;
-class TaskInputDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TaskInput> _instance;
-} _TaskInput_default_instance_;
-class TaskOutputDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TaskOutput> _instance;
-} _TaskOutput_default_instance_;
-class TaskSpec_ParameterDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TaskSpec_Parameter> _instance;
-} _TaskSpec_Parameter_default_instance_;
-class TaskSpecDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TaskSpec> _instance;
-} _TaskSpec_default_instance_;
+constexpr TaskInput_Part::TaskInput_Part(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : file_pattern_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_format_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , record_format_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct TaskInput_PartDefaultTypeInternal {
+  constexpr TaskInput_PartDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TaskInput_PartDefaultTypeInternal() {}
+  union {
+    TaskInput_Part _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TaskInput_PartDefaultTypeInternal _TaskInput_Part_default_instance_;
+constexpr TaskInput::TaskInput(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : file_format_()
+  , record_format_()
+  , part_()
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , creator_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , multi_file_(false){}
+struct TaskInputDefaultTypeInternal {
+  constexpr TaskInputDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TaskInputDefaultTypeInternal() {}
+  union {
+    TaskInput _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TaskInputDefaultTypeInternal _TaskInput_default_instance_;
+constexpr TaskOutput::TaskOutput(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_format_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , record_format_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_base_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_extension_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , shards_(0){}
+struct TaskOutputDefaultTypeInternal {
+  constexpr TaskOutputDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TaskOutputDefaultTypeInternal() {}
+  union {
+    TaskOutput _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TaskOutputDefaultTypeInternal _TaskOutput_default_instance_;
+constexpr TaskSpec_Parameter::TaskSpec_Parameter(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct TaskSpec_ParameterDefaultTypeInternal {
+  constexpr TaskSpec_ParameterDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TaskSpec_ParameterDefaultTypeInternal() {}
+  union {
+    TaskSpec_Parameter _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TaskSpec_ParameterDefaultTypeInternal _TaskSpec_Parameter_default_instance_;
+constexpr TaskSpec::TaskSpec(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : parameter_()
+  , input_()
+  , output_()
+  , task_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , task_type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct TaskSpecDefaultTypeInternal {
+  constexpr TaskSpecDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TaskSpecDefaultTypeInternal() {}
+  union {
+    TaskSpec _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TaskSpecDefaultTypeInternal _TaskSpec_default_instance_;
 }  // namespace chrome_lang_id
-static void InitDefaultsscc_info_TaskInput_task_5fspec_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_TaskInput_default_instance_;
-    new (ptr) ::chrome_lang_id::TaskInput();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::TaskInput::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TaskInput_task_5fspec_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_TaskInput_task_5fspec_2eproto}, {
-      &scc_info_TaskInput_Part_task_5fspec_2eproto.base,}};
-
-static void InitDefaultsscc_info_TaskInput_Part_task_5fspec_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_TaskInput_Part_default_instance_;
-    new (ptr) ::chrome_lang_id::TaskInput_Part();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::TaskInput_Part::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TaskInput_Part_task_5fspec_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TaskInput_Part_task_5fspec_2eproto}, {}};
-
-static void InitDefaultsscc_info_TaskOutput_task_5fspec_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_TaskOutput_default_instance_;
-    new (ptr) ::chrome_lang_id::TaskOutput();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::TaskOutput::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TaskOutput_task_5fspec_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TaskOutput_task_5fspec_2eproto}, {}};
-
-static void InitDefaultsscc_info_TaskSpec_task_5fspec_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_TaskSpec_default_instance_;
-    new (ptr) ::chrome_lang_id::TaskSpec();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::TaskSpec::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_TaskSpec_task_5fspec_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_TaskSpec_task_5fspec_2eproto}, {
-      &scc_info_TaskSpec_Parameter_task_5fspec_2eproto.base,
-      &scc_info_TaskInput_task_5fspec_2eproto.base,
-      &scc_info_TaskOutput_task_5fspec_2eproto.base,}};
-
-static void InitDefaultsscc_info_TaskSpec_Parameter_task_5fspec_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_TaskSpec_Parameter_default_instance_;
-    new (ptr) ::chrome_lang_id::TaskSpec_Parameter();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::TaskSpec_Parameter::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TaskSpec_Parameter_task_5fspec_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TaskSpec_Parameter_task_5fspec_2eproto}, {}};
-
 namespace chrome_lang_id {
 
 // ===================================================================
 
-void TaskInput_Part::InitAsDefaultInstance() {
-}
 class TaskInput_Part::_Internal {
  public:
   using HasBits = decltype(std::declval<TaskInput_Part>()._has_bits_);
@@ -143,27 +122,26 @@ TaskInput_Part::TaskInput_Part(const TaskInput_Part& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   file_pattern_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_pattern()) {
-    file_pattern_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file_pattern(),
+    file_pattern_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_pattern(), 
       GetArena());
   }
   file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_format()) {
-    file_format_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file_format(),
+    file_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_format(), 
       GetArena());
   }
   record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_record_format()) {
-    record_format_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_record_format(),
+    record_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_record_format(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskInput.Part)
 }
 
 void TaskInput_Part::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TaskInput_Part_task_5fspec_2eproto.base);
-  file_pattern_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+file_pattern_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 TaskInput_Part::~TaskInput_Part() {
@@ -188,11 +166,6 @@ void TaskInput_Part::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TaskInput_Part::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TaskInput_Part& TaskInput_Part::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TaskInput_Part_task_5fspec_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TaskInput_Part::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.TaskInput.Part)
@@ -219,7 +192,6 @@ void TaskInput_Part::Clear() {
 const char* TaskInput_Part::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -399,8 +371,6 @@ std::string TaskInput_Part::GetTypeName() const {
 
 // ===================================================================
 
-void TaskInput::InitAsDefaultInstance() {
-}
 class TaskInput::_Internal {
  public:
   using HasBits = decltype(std::declval<TaskInput>()._has_bits_);
@@ -436,12 +406,12 @@ TaskInput::TaskInput(const TaskInput& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
-    name_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArena());
   }
   creator_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_creator()) {
-    creator_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_creator(),
+    creator_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_creator(), 
       GetArena());
   }
   multi_file_ = from.multi_file_;
@@ -449,10 +419,9 @@ TaskInput::TaskInput(const TaskInput& from)
 }
 
 void TaskInput::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TaskInput_task_5fspec_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  creator_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  multi_file_ = false;
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+creator_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+multi_file_ = false;
 }
 
 TaskInput::~TaskInput() {
@@ -476,11 +445,6 @@ void TaskInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TaskInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TaskInput& TaskInput::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TaskInput_task_5fspec_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TaskInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.TaskInput)
@@ -508,7 +472,6 @@ void TaskInput::Clear() {
 const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -774,8 +737,6 @@ std::string TaskInput::GetTypeName() const {
 
 // ===================================================================
 
-void TaskOutput::InitAsDefaultInstance() {
-}
 class TaskOutput::_Internal {
  public:
   using HasBits = decltype(std::declval<TaskOutput>()._has_bits_);
@@ -814,27 +775,27 @@ TaskOutput::TaskOutput(const TaskOutput& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
-    name_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArena());
   }
   file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_format()) {
-    file_format_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file_format(),
+    file_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_format(), 
       GetArena());
   }
   record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_record_format()) {
-    record_format_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_record_format(),
+    record_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_record_format(), 
       GetArena());
   }
   file_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_base()) {
-    file_base_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file_base(),
+    file_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_base(), 
       GetArena());
   }
   file_extension_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_extension()) {
-    file_extension_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file_extension(),
+    file_extension_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_extension(), 
       GetArena());
   }
   shards_ = from.shards_;
@@ -842,13 +803,12 @@ TaskOutput::TaskOutput(const TaskOutput& from)
 }
 
 void TaskOutput::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TaskOutput_task_5fspec_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  file_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  file_extension_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  shards_ = 0;
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+file_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+file_extension_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+shards_ = 0;
 }
 
 TaskOutput::~TaskOutput() {
@@ -875,11 +835,6 @@ void TaskOutput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TaskOutput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TaskOutput& TaskOutput::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TaskOutput_task_5fspec_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TaskOutput::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.TaskOutput)
@@ -913,7 +868,6 @@ void TaskOutput::Clear() {
 const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -1169,8 +1123,6 @@ std::string TaskOutput::GetTypeName() const {
 
 // ===================================================================
 
-void TaskSpec_Parameter::InitAsDefaultInstance() {
-}
 class TaskSpec_Parameter::_Internal {
  public:
   using HasBits = decltype(std::declval<TaskSpec_Parameter>()._has_bits_);
@@ -1197,21 +1149,20 @@ TaskSpec_Parameter::TaskSpec_Parameter(const TaskSpec_Parameter& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
-    name_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArena());
   }
   value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_value()) {
-    value_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_value(),
+    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskSpec.Parameter)
 }
 
 void TaskSpec_Parameter::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TaskSpec_Parameter_task_5fspec_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 TaskSpec_Parameter::~TaskSpec_Parameter() {
@@ -1235,11 +1186,6 @@ void TaskSpec_Parameter::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TaskSpec_Parameter::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TaskSpec_Parameter& TaskSpec_Parameter::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TaskSpec_Parameter_task_5fspec_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TaskSpec_Parameter::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.TaskSpec.Parameter)
@@ -1263,7 +1209,6 @@ void TaskSpec_Parameter::Clear() {
 const char* TaskSpec_Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -1416,8 +1361,6 @@ std::string TaskSpec_Parameter::GetTypeName() const {
 
 // ===================================================================
 
-void TaskSpec::InitAsDefaultInstance() {
-}
 class TaskSpec::_Internal {
  public:
   using HasBits = decltype(std::declval<TaskSpec>()._has_bits_);
@@ -1447,21 +1390,20 @@ TaskSpec::TaskSpec(const TaskSpec& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   task_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_task_name()) {
-    task_name_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_task_name(),
+    task_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_task_name(), 
       GetArena());
   }
   task_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_task_type()) {
-    task_type_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_task_type(),
+    task_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_task_type(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskSpec)
 }
 
 void TaskSpec::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TaskSpec_task_5fspec_2eproto.base);
-  task_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  task_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+task_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+task_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 TaskSpec::~TaskSpec() {
@@ -1485,11 +1427,6 @@ void TaskSpec::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TaskSpec::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TaskSpec& TaskSpec::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TaskSpec_task_5fspec_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TaskSpec::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.TaskSpec)
@@ -1516,7 +1453,6 @@ void TaskSpec::Clear() {
 const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
