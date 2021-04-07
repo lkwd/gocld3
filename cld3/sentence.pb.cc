@@ -11,46 +11,44 @@
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_sentence_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Token_sentence_2eproto;
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace chrome_lang_id {
-class SentenceDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Sentence> _instance;
-} _Sentence_default_instance_;
-class TokenDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Token> _instance;
-} _Token_default_instance_;
+constexpr Sentence::Sentence(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : token_()
+  , id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct SentenceDefaultTypeInternal {
+  constexpr SentenceDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~SentenceDefaultTypeInternal() {}
+  union {
+    Sentence _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SentenceDefaultTypeInternal _Sentence_default_instance_;
+constexpr Token::Token(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : word_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , tag_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , category_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , label_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , start_(0)
+  , end_(0)
+  , head_(-1)
+  , break_level_(1)
+{}
+struct TokenDefaultTypeInternal {
+  constexpr TokenDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TokenDefaultTypeInternal() {}
+  union {
+    Token _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TokenDefaultTypeInternal _Token_default_instance_;
 }  // namespace chrome_lang_id
-static void InitDefaultsscc_info_Sentence_sentence_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_Sentence_default_instance_;
-    new (ptr) ::chrome_lang_id::Sentence();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::Sentence::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Sentence_sentence_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Sentence_sentence_2eproto}, {
-      &scc_info_Token_sentence_2eproto.base,}};
-
-static void InitDefaultsscc_info_Token_sentence_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::chrome_lang_id::_Token_default_instance_;
-    new (ptr) ::chrome_lang_id::Token();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::chrome_lang_id::Token::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Token_sentence_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Token_sentence_2eproto}, {}};
-
 namespace chrome_lang_id {
 bool Token_BreakLevel_IsValid(int value) {
   switch (value) {
@@ -123,8 +121,6 @@ constexpr int Token::BreakLevel_ARRAYSIZE;
 
 // ===================================================================
 
-void Sentence::InitAsDefaultInstance() {
-}
 class Sentence::_Internal {
  public:
   using HasBits = decltype(std::declval<Sentence>()._has_bits_);
@@ -152,21 +148,20 @@ Sentence::Sentence(const Sentence& from)
   _extensions_.MergeFrom(from._extensions_);
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_id()) {
-    id_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_id(),
+    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
       GetArena());
   }
   text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_text()) {
-    text_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_text(),
+    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.Sentence)
 }
 
 void Sentence::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Sentence_sentence_2eproto.base);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 Sentence::~Sentence() {
@@ -190,11 +185,6 @@ void Sentence::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Sentence::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Sentence& Sentence::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Sentence_sentence_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Sentence::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.Sentence)
@@ -220,7 +210,6 @@ void Sentence::Clear() {
 const char* Sentence::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -423,8 +412,6 @@ std::string Sentence::GetTypeName() const {
 
 // ===================================================================
 
-void Token::InitAsDefaultInstance() {
-}
 class Token::_Internal {
  public:
   using HasBits = decltype(std::declval<Token>()._has_bits_);
@@ -471,22 +458,22 @@ Token::Token(const Token& from)
   _extensions_.MergeFrom(from._extensions_);
   word_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_word()) {
-    word_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_word(),
+    word_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_word(), 
       GetArena());
   }
   tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_tag()) {
-    tag_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_tag(),
+    tag_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_tag(), 
       GetArena());
   }
   category_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_category()) {
-    category_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_category(),
+    category_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_category(), 
       GetArena());
   }
   label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_label()) {
-    label_.SetLite(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_label(),
+    label_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_label(), 
       GetArena());
   }
   ::memcpy(&start_, &from.start_,
@@ -496,16 +483,16 @@ Token::Token(const Token& from)
 }
 
 void Token::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Token_sentence_2eproto.base);
-  word_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  category_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&start_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&end_) -
-      reinterpret_cast<char*>(&start_)) + sizeof(end_));
-  head_ = -1;
-  break_level_ = 1;
+word_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+category_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&start_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&end_) -
+    reinterpret_cast<char*>(&start_)) + sizeof(end_));
+head_ = -1;
+break_level_ = 1;
 }
 
 Token::~Token() {
@@ -531,11 +518,6 @@ void Token::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Token::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Token& Token::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Token_sentence_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Token::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.Token)
@@ -573,7 +555,6 @@ void Token::Clear() {
 const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
