@@ -110,10 +110,13 @@ class TaskInput_Part::_Internal {
   }
 };
 
-TaskInput_Part::TaskInput_Part(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+TaskInput_Part::TaskInput_Part(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.TaskInput.Part)
 }
 TaskInput_Part::TaskInput_Part(const TaskInput_Part& from)
@@ -123,17 +126,17 @@ TaskInput_Part::TaskInput_Part(const TaskInput_Part& from)
   file_pattern_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_pattern()) {
     file_pattern_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_pattern(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_format()) {
     file_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_format(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_record_format()) {
     record_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_record_format(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskInput.Part)
 }
@@ -146,12 +149,13 @@ record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStri
 
 TaskInput_Part::~TaskInput_Part() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.TaskInput.Part)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void TaskInput_Part::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TaskInput_Part::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   file_pattern_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   file_format_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   record_format_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -195,7 +199,6 @@ const char* TaskInput_Part::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // optional string file_pattern = 7;
       case 7:
@@ -203,7 +206,8 @@ const char* TaskInput_Part::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           auto str = _internal_mutable_file_pattern();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string file_format = 8;
       case 8:
@@ -211,7 +215,8 @@ const char* TaskInput_Part::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           auto str = _internal_mutable_file_format();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string record_format = 9;
       case 9:
@@ -219,28 +224,30 @@ const char* TaskInput_Part::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           auto str = _internal_mutable_record_format();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -326,7 +333,6 @@ void TaskInput_Part::CheckTypeAndMergeFrom(
 void TaskInput_Part::MergeFrom(const TaskInput_Part& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.TaskInput.Part)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -342,6 +348,7 @@ void TaskInput_Part::MergeFrom(const TaskInput_Part& from) {
       _internal_set_record_format(from._internal_record_format());
     }
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TaskInput_Part::CopyFrom(const TaskInput_Part& from) {
@@ -357,11 +364,25 @@ bool TaskInput_Part::IsInitialized() const {
 
 void TaskInput_Part::InternalSwap(TaskInput_Part* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  file_pattern_.Swap(&other->file_pattern_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  file_format_.Swap(&other->file_format_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  record_format_.Swap(&other->record_format_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_pattern_, lhs_arena,
+      &other->file_pattern_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_format_, lhs_arena,
+      &other->file_format_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &record_format_, lhs_arena,
+      &other->record_format_, rhs_arena
+  );
 }
 
 std::string TaskInput_Part::GetTypeName() const {
@@ -388,13 +409,16 @@ class TaskInput::_Internal {
   }
 };
 
-TaskInput::TaskInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena),
+TaskInput::TaskInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   file_format_(arena),
   record_format_(arena),
   part_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.TaskInput)
 }
 TaskInput::TaskInput(const TaskInput& from)
@@ -407,12 +431,12 @@ TaskInput::TaskInput(const TaskInput& from)
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   creator_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_creator()) {
     creator_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_creator(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   multi_file_ = from.multi_file_;
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskInput)
@@ -426,12 +450,13 @@ multi_file_ = false;
 
 TaskInput::~TaskInput() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.TaskInput)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void TaskInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TaskInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   creator_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -475,7 +500,6 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // required string name = 1;
       case 1:
@@ -483,7 +507,8 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string creator = 2;
       case 2:
@@ -491,7 +516,8 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           auto str = _internal_mutable_creator();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated string file_format = 3;
       case 3:
@@ -504,7 +530,8 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated string record_format = 4;
       case 4:
@@ -517,7 +544,8 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional bool multi_file = 5 [default = false];
       case 5:
@@ -525,7 +553,8 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           _Internal::set_has_multi_file(&has_bits);
           multi_file_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated group Part = 6 { ... };
       case 6:
@@ -537,28 +566,30 @@ const char* TaskInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<51>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -684,7 +715,6 @@ void TaskInput::CheckTypeAndMergeFrom(
 void TaskInput::MergeFrom(const TaskInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.TaskInput)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -704,6 +734,7 @@ void TaskInput::MergeFrom(const TaskInput& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TaskInput::CopyFrom(const TaskInput& from) {
@@ -720,13 +751,23 @@ bool TaskInput::IsInitialized() const {
 
 void TaskInput::InternalSwap(TaskInput* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   file_format_.InternalSwap(&other->file_format_);
   record_format_.InternalSwap(&other->record_format_);
   part_.InternalSwap(&other->part_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  creator_.Swap(&other->creator_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &creator_, lhs_arena,
+      &other->creator_, rhs_arena
+  );
   swap(multi_file_, other->multi_file_);
 }
 
@@ -763,10 +804,13 @@ class TaskOutput::_Internal {
   }
 };
 
-TaskOutput::TaskOutput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+TaskOutput::TaskOutput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.TaskOutput)
 }
 TaskOutput::TaskOutput(const TaskOutput& from)
@@ -776,27 +820,27 @@ TaskOutput::TaskOutput(const TaskOutput& from)
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   file_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_format()) {
     file_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_format(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   record_format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_record_format()) {
     record_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_record_format(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   file_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_base()) {
     file_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_base(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   file_extension_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_file_extension()) {
     file_extension_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_extension(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   shards_ = from.shards_;
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskOutput)
@@ -813,12 +857,13 @@ shards_ = 0;
 
 TaskOutput::~TaskOutput() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.TaskOutput)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void TaskOutput::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TaskOutput::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   file_format_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   record_format_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -871,7 +916,6 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // required string name = 1;
       case 1:
@@ -879,7 +923,8 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string file_format = 2;
       case 2:
@@ -887,7 +932,8 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           auto str = _internal_mutable_file_format();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string record_format = 3;
       case 3:
@@ -895,7 +941,8 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           auto str = _internal_mutable_record_format();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional int32 shards = 4 [default = 0];
       case 4:
@@ -903,7 +950,8 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           _Internal::set_has_shards(&has_bits);
           shards_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string file_base = 5;
       case 5:
@@ -911,7 +959,8 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           auto str = _internal_mutable_file_base();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string file_extension = 6;
       case 6:
@@ -919,28 +968,30 @@ const char* TaskOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           auto str = _internal_mutable_file_extension();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -1041,9 +1092,7 @@ size_t TaskOutput::ByteSizeLong() const {
 
     // optional int32 shards = 4 [default = 0];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_shards());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_shards());
     }
 
   }
@@ -1064,7 +1113,6 @@ void TaskOutput::CheckTypeAndMergeFrom(
 void TaskOutput::MergeFrom(const TaskOutput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.TaskOutput)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1090,6 +1138,7 @@ void TaskOutput::MergeFrom(const TaskOutput& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TaskOutput::CopyFrom(const TaskOutput& from) {
@@ -1106,13 +1155,35 @@ bool TaskOutput::IsInitialized() const {
 
 void TaskOutput::InternalSwap(TaskOutput* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  file_format_.Swap(&other->file_format_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  record_format_.Swap(&other->record_format_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  file_base_.Swap(&other->file_base_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  file_extension_.Swap(&other->file_extension_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_format_, lhs_arena,
+      &other->file_format_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &record_format_, lhs_arena,
+      &other->record_format_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_base_, lhs_arena,
+      &other->file_base_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_extension_, lhs_arena,
+      &other->file_extension_, rhs_arena
+  );
   swap(shards_, other->shards_);
 }
 
@@ -1137,10 +1208,13 @@ class TaskSpec_Parameter::_Internal {
   }
 };
 
-TaskSpec_Parameter::TaskSpec_Parameter(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+TaskSpec_Parameter::TaskSpec_Parameter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.TaskSpec.Parameter)
 }
 TaskSpec_Parameter::TaskSpec_Parameter(const TaskSpec_Parameter& from)
@@ -1150,12 +1224,12 @@ TaskSpec_Parameter::TaskSpec_Parameter(const TaskSpec_Parameter& from)
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_value()) {
     value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskSpec.Parameter)
 }
@@ -1167,12 +1241,13 @@ value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
 
 TaskSpec_Parameter::~TaskSpec_Parameter() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.TaskSpec.Parameter)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void TaskSpec_Parameter::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TaskSpec_Parameter::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -1212,7 +1287,6 @@ const char* TaskSpec_Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // required string name = 4;
       case 4:
@@ -1220,7 +1294,8 @@ const char* TaskSpec_Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string value = 5;
       case 5:
@@ -1228,28 +1303,30 @@ const char* TaskSpec_Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
           auto str = _internal_mutable_value();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -1319,7 +1396,6 @@ void TaskSpec_Parameter::CheckTypeAndMergeFrom(
 void TaskSpec_Parameter::MergeFrom(const TaskSpec_Parameter& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.TaskSpec.Parameter)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1332,6 +1408,7 @@ void TaskSpec_Parameter::MergeFrom(const TaskSpec_Parameter& from) {
       _internal_set_value(from._internal_value());
     }
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TaskSpec_Parameter::CopyFrom(const TaskSpec_Parameter& from) {
@@ -1348,10 +1425,20 @@ bool TaskSpec_Parameter::IsInitialized() const {
 
 void TaskSpec_Parameter::InternalSwap(TaskSpec_Parameter* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  value_.Swap(&other->value_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &value_, lhs_arena,
+      &other->value_, rhs_arena
+  );
 }
 
 std::string TaskSpec_Parameter::GetTypeName() const {
@@ -1372,13 +1459,16 @@ class TaskSpec::_Internal {
   }
 };
 
-TaskSpec::TaskSpec(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena),
+TaskSpec::TaskSpec(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   parameter_(arena),
   input_(arena),
   output_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.TaskSpec)
 }
 TaskSpec::TaskSpec(const TaskSpec& from)
@@ -1391,12 +1481,12 @@ TaskSpec::TaskSpec(const TaskSpec& from)
   task_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_task_name()) {
     task_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_task_name(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   task_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_task_type()) {
     task_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_task_type(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.TaskSpec)
 }
@@ -1408,12 +1498,13 @@ task_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAl
 
 TaskSpec::~TaskSpec() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.TaskSpec)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void TaskSpec::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TaskSpec::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   task_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   task_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -1456,7 +1547,6 @@ const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // optional string task_name = 1;
       case 1:
@@ -1464,7 +1554,8 @@ const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           auto str = _internal_mutable_task_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string task_type = 2;
       case 2:
@@ -1472,7 +1563,8 @@ const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           auto str = _internal_mutable_task_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated group Parameter = 3 { ... };
       case 3:
@@ -1484,7 +1576,8 @@ const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<27>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .chrome_lang_id.TaskInput input = 6;
       case 6:
@@ -1496,7 +1589,8 @@ const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .chrome_lang_id.TaskOutput output = 7;
       case 7:
@@ -1508,28 +1602,30 @@ const char* TaskSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -1647,7 +1743,6 @@ void TaskSpec::CheckTypeAndMergeFrom(
 void TaskSpec::MergeFrom(const TaskSpec& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.TaskSpec)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1663,6 +1758,7 @@ void TaskSpec::MergeFrom(const TaskSpec& from) {
       _internal_set_task_type(from._internal_task_type());
     }
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TaskSpec::CopyFrom(const TaskSpec& from) {
@@ -1681,13 +1777,23 @@ bool TaskSpec::IsInitialized() const {
 
 void TaskSpec::InternalSwap(TaskSpec* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   parameter_.InternalSwap(&other->parameter_);
   input_.InternalSwap(&other->input_);
   output_.InternalSwap(&other->output_);
-  task_name_.Swap(&other->task_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  task_type_.Swap(&other->task_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &task_name_, lhs_arena,
+      &other->task_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &task_type_, lhs_arena,
+      &other->task_type_, rhs_arena
+  );
 }
 
 std::string TaskSpec::GetTypeName() const {

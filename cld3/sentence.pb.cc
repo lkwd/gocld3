@@ -132,12 +132,15 @@ class Sentence::_Internal {
   }
 };
 
-Sentence::Sentence(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena),
+Sentence::Sentence(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   _extensions_(arena),
   token_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.Sentence)
 }
 Sentence::Sentence(const Sentence& from)
@@ -149,12 +152,12 @@ Sentence::Sentence(const Sentence& from)
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_id()) {
     id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_text()) {
     text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.Sentence)
 }
@@ -166,12 +169,13 @@ text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlready
 
 Sentence::~Sentence() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.Sentence)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void Sentence::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Sentence::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -213,7 +217,6 @@ const char* Sentence::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // optional string id = 1;
       case 1:
@@ -221,7 +224,8 @@ const char* Sentence::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           auto str = _internal_mutable_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string text = 2;
       case 2:
@@ -229,7 +233,8 @@ const char* Sentence::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           auto str = _internal_mutable_text();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .chrome_lang_id.Token token = 3;
       case 3:
@@ -241,34 +246,35 @@ const char* Sentence::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-      if ((8000u <= tag)) {
-        ptr = _extensions_.ParseField(tag, ptr,
-            internal_default_instance(), &_internal_metadata_, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    if ((8000u <= tag)) {
+      ptr = _extensions_.ParseField(tag, ptr, internal_default_instance(), &_internal_metadata_, ctx);
+      CHK_(ptr != nullptr);
+      continue;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -301,7 +307,7 @@ failure:
 
   // Extension range [1000, 536870912)
   target = _extensions_._InternalSerialize(
-      1000, 536870912, target, stream);
+  internal_default_instance(), 1000, 536870912, target, stream);
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
@@ -362,8 +368,6 @@ void Sentence::CheckTypeAndMergeFrom(
 void Sentence::MergeFrom(const Sentence& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.Sentence)
   GOOGLE_DCHECK_NE(&from, this);
-  _extensions_.MergeFrom(from._extensions_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -377,6 +381,8 @@ void Sentence::MergeFrom(const Sentence& from) {
       _internal_set_text(from._internal_text());
     }
   }
+  _extensions_.MergeFrom(from._extensions_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Sentence::CopyFrom(const Sentence& from) {
@@ -397,12 +403,22 @@ bool Sentence::IsInitialized() const {
 
 void Sentence::InternalSwap(Sentence* other) {
   using std::swap;
-  _extensions_.Swap(&other->_extensions_);
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  _extensions_.InternalSwap(&other->_extensions_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   token_.InternalSwap(&other->token_);
-  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  text_.Swap(&other->text_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &id_, lhs_arena,
+      &other->id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &text_, lhs_arena,
+      &other->text_, rhs_arena
+  );
 }
 
 std::string Sentence::GetTypeName() const {
@@ -444,11 +460,14 @@ class Token::_Internal {
   }
 };
 
-Token::Token(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena),
+Token::Token(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   _extensions_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.Token)
 }
 Token::Token(const Token& from)
@@ -459,22 +478,22 @@ Token::Token(const Token& from)
   word_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_word()) {
     word_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_word(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_tag()) {
     tag_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_tag(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   category_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_category()) {
     category_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_category(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_label()) {
     label_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_label(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   ::memcpy(&start_, &from.start_,
     static_cast<size_t>(reinterpret_cast<char*>(&break_level_) -
@@ -497,12 +516,13 @@ break_level_ = 1;
 
 Token::~Token() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.Token)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void Token::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Token::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   word_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   tag_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   category_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -558,7 +578,6 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // required string word = 1;
       case 1:
@@ -566,7 +585,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           auto str = _internal_mutable_word();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // required int32 start = 2;
       case 2:
@@ -574,7 +594,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           _Internal::set_has_start(&has_bits);
           start_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // required int32 end = 3;
       case 3:
@@ -582,7 +603,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           _Internal::set_has_end(&has_bits);
           end_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional int32 head = 4 [default = -1];
       case 4:
@@ -590,7 +612,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           _Internal::set_has_head(&has_bits);
           head_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string tag = 5;
       case 5:
@@ -598,7 +621,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           auto str = _internal_mutable_tag();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string category = 6;
       case 6:
@@ -606,7 +630,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           auto str = _internal_mutable_category();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string label = 7;
       case 7:
@@ -614,7 +639,8 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           auto str = _internal_mutable_label();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional .chrome_lang_id.Token.BreakLevel break_level = 8 [default = SPACE_BREAK];
       case 8:
@@ -626,34 +652,35 @@ const char* Token::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(8, val, mutable_unknown_fields());
           }
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-      if ((8000u <= tag)) {
-        ptr = _extensions_.ParseField(tag, ptr,
-            internal_default_instance(), &_internal_metadata_, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    if ((8000u <= tag)) {
+      ptr = _extensions_.ParseField(tag, ptr, internal_default_instance(), &_internal_metadata_, ctx);
+      CHK_(ptr != nullptr);
+      continue;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -715,7 +742,7 @@ failure:
 
   // Extension range [1000, 536870912)
   target = _extensions_._InternalSerialize(
-      1000, 536870912, target, stream);
+  internal_default_instance(), 1000, 536870912, target, stream);
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
@@ -738,16 +765,12 @@ size_t Token::RequiredFieldsByteSizeFallback() const {
 
   if (_internal_has_start()) {
     // required int32 start = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_start());
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_start());
   }
 
   if (_internal_has_end()) {
     // required int32 end = 3;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_end());
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_end());
   }
 
   return total_size;
@@ -765,14 +788,10 @@ size_t Token::ByteSizeLong() const {
         this->_internal_word());
 
     // required int32 start = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_start());
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_start());
 
     // required int32 end = 3;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_end());
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_end());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -808,9 +827,7 @@ size_t Token::ByteSizeLong() const {
   if (cached_has_bits & 0x000000c0u) {
     // optional int32 head = 4 [default = -1];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_head());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_head());
     }
 
     // optional .chrome_lang_id.Token.BreakLevel break_level = 8 [default = SPACE_BREAK];
@@ -837,8 +854,6 @@ void Token::CheckTypeAndMergeFrom(
 void Token::MergeFrom(const Token& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.Token)
   GOOGLE_DCHECK_NE(&from, this);
-  _extensions_.MergeFrom(from._extensions_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -870,6 +885,8 @@ void Token::MergeFrom(const Token& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  _extensions_.MergeFrom(from._extensions_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Token::CopyFrom(const Token& from) {
@@ -890,13 +907,31 @@ bool Token::IsInitialized() const {
 
 void Token::InternalSwap(Token* other) {
   using std::swap;
-  _extensions_.Swap(&other->_extensions_);
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  _extensions_.InternalSwap(&other->_extensions_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  word_.Swap(&other->word_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  tag_.Swap(&other->tag_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  category_.Swap(&other->category_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  label_.Swap(&other->label_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &word_, lhs_arena,
+      &other->word_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &tag_, lhs_arena,
+      &other->tag_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &category_, lhs_arena,
+      &other->category_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &label_, lhs_arena,
+      &other->label_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Token, end_)
       + sizeof(Token::end_)

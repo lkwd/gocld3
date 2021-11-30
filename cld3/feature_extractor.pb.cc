@@ -71,10 +71,13 @@ class Parameter::_Internal {
   }
 };
 
-Parameter::Parameter(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+Parameter::Parameter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.Parameter)
 }
 Parameter::Parameter(const Parameter& from)
@@ -84,12 +87,12 @@ Parameter::Parameter(const Parameter& from)
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_value()) {
     value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.Parameter)
 }
@@ -101,12 +104,13 @@ value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
 
 Parameter::~Parameter() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.Parameter)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void Parameter::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Parameter::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -146,7 +150,6 @@ const char* Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // optional string name = 1;
       case 1:
@@ -154,7 +157,8 @@ const char* Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string value = 2;
       case 2:
@@ -162,28 +166,30 @@ const char* Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           auto str = _internal_mutable_value();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -256,7 +262,6 @@ void Parameter::CheckTypeAndMergeFrom(
 void Parameter::MergeFrom(const Parameter& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.Parameter)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -269,6 +274,7 @@ void Parameter::MergeFrom(const Parameter& from) {
       _internal_set_value(from._internal_value());
     }
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Parameter::CopyFrom(const Parameter& from) {
@@ -284,10 +290,20 @@ bool Parameter::IsInitialized() const {
 
 void Parameter::InternalSwap(Parameter* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  value_.Swap(&other->value_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &value_, lhs_arena,
+      &other->value_, rhs_arena
+  );
 }
 
 std::string Parameter::GetTypeName() const {
@@ -314,12 +330,15 @@ class FeatureFunctionDescriptor::_Internal {
   }
 };
 
-FeatureFunctionDescriptor::FeatureFunctionDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena),
+FeatureFunctionDescriptor::FeatureFunctionDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   parameter_(arena),
   feature_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.FeatureFunctionDescriptor)
 }
 FeatureFunctionDescriptor::FeatureFunctionDescriptor(const FeatureFunctionDescriptor& from)
@@ -331,12 +350,12 @@ FeatureFunctionDescriptor::FeatureFunctionDescriptor(const FeatureFunctionDescri
   type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_type()) {
     type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_type(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
+      GetArenaForAllocation());
   }
   argument_ = from.argument_;
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.FeatureFunctionDescriptor)
@@ -350,12 +369,13 @@ argument_ = 0;
 
 FeatureFunctionDescriptor::~FeatureFunctionDescriptor() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.FeatureFunctionDescriptor)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void FeatureFunctionDescriptor::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void FeatureFunctionDescriptor::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -398,7 +418,6 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBU
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // required string type = 1;
       case 1:
@@ -406,7 +425,8 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBU
           auto str = _internal_mutable_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional string name = 2;
       case 2:
@@ -414,7 +434,8 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBU
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // optional int32 argument = 3 [default = 0];
       case 3:
@@ -422,7 +443,8 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBU
           _Internal::set_has_argument(&has_bits);
           argument_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .chrome_lang_id.Parameter parameter = 4;
       case 4:
@@ -434,7 +456,8 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBU
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 7;
       case 7:
@@ -446,28 +469,30 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBU
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -559,9 +584,7 @@ size_t FeatureFunctionDescriptor::ByteSizeLong() const {
 
     // optional int32 argument = 3 [default = 0];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_argument());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_argument());
     }
 
   }
@@ -582,7 +605,6 @@ void FeatureFunctionDescriptor::CheckTypeAndMergeFrom(
 void FeatureFunctionDescriptor::MergeFrom(const FeatureFunctionDescriptor& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.FeatureFunctionDescriptor)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -601,6 +623,7 @@ void FeatureFunctionDescriptor::MergeFrom(const FeatureFunctionDescriptor& from)
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FeatureFunctionDescriptor::CopyFrom(const FeatureFunctionDescriptor& from) {
@@ -618,12 +641,22 @@ bool FeatureFunctionDescriptor::IsInitialized() const {
 
 void FeatureFunctionDescriptor::InternalSwap(FeatureFunctionDescriptor* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   parameter_.InternalSwap(&other->parameter_);
   feature_.InternalSwap(&other->feature_);
-  type_.Swap(&other->type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &type_, lhs_arena,
+      &other->type_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   swap(argument_, other->argument_);
 }
 
@@ -638,11 +671,14 @@ class FeatureExtractorDescriptor::_Internal {
  public:
 };
 
-FeatureExtractorDescriptor::FeatureExtractorDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena),
+FeatureExtractorDescriptor::FeatureExtractorDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   feature_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.FeatureExtractorDescriptor)
 }
 FeatureExtractorDescriptor::FeatureExtractorDescriptor(const FeatureExtractorDescriptor& from)
@@ -657,12 +693,13 @@ void FeatureExtractorDescriptor::SharedCtor() {
 
 FeatureExtractorDescriptor::~FeatureExtractorDescriptor() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.FeatureExtractorDescriptor)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-void FeatureExtractorDescriptor::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void FeatureExtractorDescriptor::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void FeatureExtractorDescriptor::ArenaDtor(void* object) {
@@ -690,7 +727,6 @@ const char* FeatureExtractorDescriptor::_InternalParse(const char* ptr, ::PROTOB
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 1;
       case 1:
@@ -702,27 +738,29 @@ const char* FeatureExtractorDescriptor::_InternalParse(const char* ptr, ::PROTOB
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
@@ -780,11 +818,11 @@ void FeatureExtractorDescriptor::CheckTypeAndMergeFrom(
 void FeatureExtractorDescriptor::MergeFrom(const FeatureExtractorDescriptor& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.FeatureExtractorDescriptor)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   feature_.MergeFrom(from.feature_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FeatureExtractorDescriptor::CopyFrom(const FeatureExtractorDescriptor& from) {
@@ -801,7 +839,7 @@ bool FeatureExtractorDescriptor::IsInitialized() const {
 
 void FeatureExtractorDescriptor::InternalSwap(FeatureExtractorDescriptor* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   feature_.InternalSwap(&other->feature_);
 }
 
