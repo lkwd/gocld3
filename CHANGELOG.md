@@ -1,3 +1,7 @@
+## v0.4.0
+* Builded with protoc to 3.21
+* Updated go version to 1.19
+
 ## v0.2.0
 * Builded with protoc to 3.15
 
