@@ -13,57 +13,48 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-
-namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
 namespace chrome_lang_id {
-PROTOBUF_CONSTEXPR Parameter::Parameter(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_._has_bits_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+constexpr Parameter::Parameter(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct ParameterDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ParameterDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  constexpr ParameterDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
   ~ParameterDefaultTypeInternal() {}
   union {
     Parameter _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParameterDefaultTypeInternal _Parameter_default_instance_;
-PROTOBUF_CONSTEXPR FeatureFunctionDescriptor::FeatureFunctionDescriptor(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_._has_bits_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.parameter_)*/{}
-  , /*decltype(_impl_.feature_)*/{}
-  , /*decltype(_impl_.type_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.argument_)*/0} {}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ParameterDefaultTypeInternal _Parameter_default_instance_;
+constexpr FeatureFunctionDescriptor::FeatureFunctionDescriptor(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : parameter_()
+  , feature_()
+  , type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , argument_(0){}
 struct FeatureFunctionDescriptorDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureFunctionDescriptorDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  constexpr FeatureFunctionDescriptorDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
   ~FeatureFunctionDescriptorDefaultTypeInternal() {}
   union {
     FeatureFunctionDescriptor _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureFunctionDescriptorDefaultTypeInternal _FeatureFunctionDescriptor_default_instance_;
-PROTOBUF_CONSTEXPR FeatureExtractorDescriptor::FeatureExtractorDescriptor(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.feature_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FeatureFunctionDescriptorDefaultTypeInternal _FeatureFunctionDescriptor_default_instance_;
+constexpr FeatureExtractorDescriptor::FeatureExtractorDescriptor(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : feature_(){}
 struct FeatureExtractorDescriptorDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureExtractorDescriptorDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  constexpr FeatureExtractorDescriptorDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
   ~FeatureExtractorDescriptorDefaultTypeInternal() {}
   union {
     FeatureExtractorDescriptor _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureExtractorDescriptorDefaultTypeInternal _FeatureExtractorDescriptor_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FeatureExtractorDescriptorDefaultTypeInternal _FeatureExtractorDescriptor_default_instance_;
 }  // namespace chrome_lang_id
 namespace chrome_lang_id {
 
@@ -71,7 +62,7 @@ namespace chrome_lang_id {
 
 class Parameter::_Internal {
  public:
-  using HasBits = decltype(std::declval<Parameter>()._impl_._has_bits_);
+  using HasBits = decltype(std::declval<Parameter>()._has_bits_);
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -83,117 +74,97 @@ class Parameter::_Internal {
 Parameter::Parameter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.Parameter)
 }
 Parameter::Parameter(const Parameter& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  Parameter* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.value_){}};
-
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
-  _impl_.value_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_value()) {
-    _this->_impl_.value_.Set(from._internal_value(), 
-      _this->GetArenaForAllocation());
+    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
+      GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.Parameter)
 }
 
-inline void Parameter::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.value_){}
-  };
-  _impl_.name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.value_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+void Parameter::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 Parameter::~Parameter() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.Parameter)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Parameter::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.name_.Destroy();
-  _impl_.value_.Destroy();
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void Parameter::ArenaDtor(void* object) {
+  Parameter* _this = reinterpret_cast< Parameter* >(object);
+  (void)_this;
+}
+void Parameter::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void Parameter::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void Parameter::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.Parameter)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
+  cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _impl_.name_.ClearNonDefaultToEmpty();
+      name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      _impl_.value_.ClearNonDefaultToEmpty();
+      value_.ClearNonDefaultToEmpty();
     }
   }
-  _impl_._has_bits_.Clear();
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Parameter::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
       // optional string value = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_value();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -214,7 +185,7 @@ const char* Parameter::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _impl_._has_bits_.Or(has_bits);
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -222,13 +193,13 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Parameter::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::PROTOBUF_NAMESPACE_ID::uint8* Parameter::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chrome_lang_id.Parameter)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
+  cached_has_bits = _has_bits_[0];
   // optional string name = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -253,11 +224,11 @@ size_t Parameter::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chrome_lang_id.Parameter)
   size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
+  cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string name = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -277,34 +248,33 @@ size_t Parameter::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Parameter::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const Parameter*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Parameter*>(
       &from));
 }
 
 void Parameter::MergeFrom(const Parameter& from) {
-  Parameter* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.Parameter)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+// @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.Parameter)
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._impl_._has_bits_[0];
+  cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_name(from._internal_name());
+      _internal_set_name(from._internal_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_set_value(from._internal_value());
+      _internal_set_value(from._internal_value());
     }
   }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Parameter::CopyFrom(const Parameter& from) {
@@ -323,14 +293,16 @@ void Parameter::InternalSwap(Parameter* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.value_, lhs_arena,
-      &other->_impl_.value_, rhs_arena
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &value_, lhs_arena,
+      &other->value_, rhs_arena
   );
 }
 
@@ -343,7 +315,7 @@ std::string Parameter::GetTypeName() const {
 
 class FeatureFunctionDescriptor::_Internal {
  public:
-  using HasBits = decltype(std::declval<FeatureFunctionDescriptor>()._impl_._has_bits_);
+  using HasBits = decltype(std::declval<FeatureFunctionDescriptor>()._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -360,146 +332,123 @@ class FeatureFunctionDescriptor::_Internal {
 
 FeatureFunctionDescriptor::FeatureFunctionDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  parameter_(arena),
+  feature_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.FeatureFunctionDescriptor)
 }
 FeatureFunctionDescriptor::FeatureFunctionDescriptor(const FeatureFunctionDescriptor& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  FeatureFunctionDescriptor* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.parameter_){from._impl_.parameter_}
-    , decltype(_impl_.feature_){from._impl_.feature_}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.argument_){}};
-
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      parameter_(from.parameter_),
+      feature_(from.feature_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.type_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.type_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_type()) {
-    _this->_impl_.type_.Set(from._internal_type(), 
-      _this->GetArenaForAllocation());
+    type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_type(), 
+      GetArenaForAllocation());
   }
-  _impl_.name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
-  _this->_impl_.argument_ = from._impl_.argument_;
+  argument_ = from.argument_;
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.FeatureFunctionDescriptor)
 }
 
-inline void FeatureFunctionDescriptor::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.parameter_){arena}
-    , decltype(_impl_.feature_){arena}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.argument_){0}
-  };
-  _impl_.type_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.type_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+void FeatureFunctionDescriptor::SharedCtor() {
+type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+argument_ = 0;
 }
 
 FeatureFunctionDescriptor::~FeatureFunctionDescriptor() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.FeatureFunctionDescriptor)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
 inline void FeatureFunctionDescriptor::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.parameter_.~RepeatedPtrField();
-  _impl_.feature_.~RepeatedPtrField();
-  _impl_.type_.Destroy();
-  _impl_.name_.Destroy();
+  type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void FeatureFunctionDescriptor::ArenaDtor(void* object) {
+  FeatureFunctionDescriptor* _this = reinterpret_cast< FeatureFunctionDescriptor* >(object);
+  (void)_this;
+}
+void FeatureFunctionDescriptor::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void FeatureFunctionDescriptor::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void FeatureFunctionDescriptor::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.FeatureFunctionDescriptor)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.parameter_.Clear();
-  _impl_.feature_.Clear();
-  cached_has_bits = _impl_._has_bits_[0];
+  parameter_.Clear();
+  feature_.Clear();
+  cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _impl_.type_.ClearNonDefaultToEmpty();
+      type_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      _impl_.name_.ClearNonDefaultToEmpty();
+      name_.ClearNonDefaultToEmpty();
     }
   }
-  _impl_.argument_ = 0;
-  _impl_._has_bits_.Clear();
+  argument_ = 0;
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_type();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
       // optional string name = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
       // optional int32 argument = 3 [default = 0];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           _Internal::set_has_argument(&has_bits);
-          _impl_.argument_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          argument_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
       // repeated .chrome_lang_id.Parameter parameter = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -512,7 +461,7 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::_pbi::P
         continue;
       // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -539,7 +488,7 @@ const char* FeatureFunctionDescriptor::_InternalParse(const char* ptr, ::_pbi::P
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _impl_._has_bits_.Or(has_bits);
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -547,13 +496,13 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeatureFunctionDescriptor::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::PROTOBUF_NAMESPACE_ID::uint8* FeatureFunctionDescriptor::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chrome_lang_id.FeatureFunctionDescriptor)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
+  cached_has_bits = _has_bits_[0];
   // required string type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -569,23 +518,23 @@ uint8_t* FeatureFunctionDescriptor::_InternalSerialize(
   // optional int32 argument = 3 [default = 0];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_argument(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_argument(), target);
   }
 
   // repeated .chrome_lang_id.Parameter parameter = 4;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_parameter_size()); i < n; i++) {
-    const auto& repfield = this->_internal_parameter(i);
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_parameter_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
+      InternalWriteMessage(4, this->_internal_parameter(i), target, stream);
   }
 
   // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 7;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_feature_size()); i < n; i++) {
-    const auto& repfield = this->_internal_feature(i);
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_feature_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(7, repfield, repfield.GetCachedSize(), target, stream);
+      InternalWriteMessage(7, this->_internal_feature(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -606,25 +555,25 @@ size_t FeatureFunctionDescriptor::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_type());
   }
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chrome_lang_id.Parameter parameter = 4;
   total_size += 1UL * this->_internal_parameter_size();
-  for (const auto& msg : this->_impl_.parameter_) {
+  for (const auto& msg : this->parameter_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 7;
   total_size += 1UL * this->_internal_feature_size();
-  for (const auto& msg : this->_impl_.feature_) {
+  for (const auto& msg : this->feature_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _impl_._has_bits_[0];
+  cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000006u) {
     // optional string name = 2;
     if (cached_has_bits & 0x00000002u) {
@@ -635,47 +584,46 @@ size_t FeatureFunctionDescriptor::ByteSizeLong() const {
 
     // optional int32 argument = 3 [default = 0];
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_argument());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_argument());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FeatureFunctionDescriptor::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const FeatureFunctionDescriptor*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const FeatureFunctionDescriptor*>(
       &from));
 }
 
 void FeatureFunctionDescriptor::MergeFrom(const FeatureFunctionDescriptor& from) {
-  FeatureFunctionDescriptor* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.FeatureFunctionDescriptor)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+// @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.FeatureFunctionDescriptor)
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.parameter_.MergeFrom(from._impl_.parameter_);
-  _this->_impl_.feature_.MergeFrom(from._impl_.feature_);
-  cached_has_bits = from._impl_._has_bits_[0];
+  parameter_.MergeFrom(from.parameter_);
+  feature_.MergeFrom(from.feature_);
+  cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_type(from._internal_type());
+      _internal_set_type(from._internal_type());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_set_name(from._internal_name());
+      _internal_set_name(from._internal_name());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_impl_.argument_ = from._impl_.argument_;
+      argument_ = from.argument_;
     }
-    _this->_impl_._has_bits_[0] |= cached_has_bits;
+    _has_bits_[0] |= cached_has_bits;
   }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FeatureFunctionDescriptor::CopyFrom(const FeatureFunctionDescriptor& from) {
@@ -686,9 +634,8 @@ void FeatureFunctionDescriptor::CopyFrom(const FeatureFunctionDescriptor& from) 
 }
 
 bool FeatureFunctionDescriptor::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.feature_))
-    return false;
+  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(feature_)) return false;
   return true;
 }
 
@@ -697,18 +644,20 @@ void FeatureFunctionDescriptor::InternalSwap(FeatureFunctionDescriptor* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.parameter_.InternalSwap(&other->_impl_.parameter_);
-  _impl_.feature_.InternalSwap(&other->_impl_.feature_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  parameter_.InternalSwap(&other->parameter_);
+  feature_.InternalSwap(&other->feature_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.type_, lhs_arena,
-      &other->_impl_.type_, rhs_arena
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &type_, lhs_arena,
+      &other->type_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
   );
-  swap(_impl_.argument_, other->_impl_.argument_);
+  swap(argument_, other->argument_);
 }
 
 std::string FeatureFunctionDescriptor::GetTypeName() const {
@@ -724,68 +673,64 @@ class FeatureExtractorDescriptor::_Internal {
 
 FeatureExtractorDescriptor::FeatureExtractorDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  feature_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:chrome_lang_id.FeatureExtractorDescriptor)
 }
 FeatureExtractorDescriptor::FeatureExtractorDescriptor(const FeatureExtractorDescriptor& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  FeatureExtractorDescriptor* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.feature_){from._impl_.feature_}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      feature_(from.feature_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chrome_lang_id.FeatureExtractorDescriptor)
 }
 
-inline void FeatureExtractorDescriptor::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.feature_){arena}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
+void FeatureExtractorDescriptor::SharedCtor() {
 }
 
 FeatureExtractorDescriptor::~FeatureExtractorDescriptor() {
   // @@protoc_insertion_point(destructor:chrome_lang_id.FeatureExtractorDescriptor)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
 inline void FeatureExtractorDescriptor::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.feature_.~RepeatedPtrField();
 }
 
+void FeatureExtractorDescriptor::ArenaDtor(void* object) {
+  FeatureExtractorDescriptor* _this = reinterpret_cast< FeatureExtractorDescriptor* >(object);
+  (void)_this;
+}
+void FeatureExtractorDescriptor::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void FeatureExtractorDescriptor::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void FeatureExtractorDescriptor::Clear() {
 // @@protoc_insertion_point(message_clear_start:chrome_lang_id.FeatureExtractorDescriptor)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.feature_.Clear();
+  feature_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* FeatureExtractorDescriptor::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* FeatureExtractorDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -819,18 +764,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeatureExtractorDescriptor::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::PROTOBUF_NAMESPACE_ID::uint8* FeatureExtractorDescriptor::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chrome_lang_id.FeatureExtractorDescriptor)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 1;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_feature_size()); i < n; i++) {
-    const auto& repfield = this->_internal_feature(i);
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_feature_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+      InternalWriteMessage(1, this->_internal_feature(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -845,13 +790,13 @@ size_t FeatureExtractorDescriptor::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chrome_lang_id.FeatureExtractorDescriptor)
   size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chrome_lang_id.FeatureFunctionDescriptor feature = 1;
   total_size += 1UL * this->_internal_feature_size();
-  for (const auto& msg : this->_impl_.feature_) {
+  for (const auto& msg : this->feature_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -859,26 +804,25 @@ size_t FeatureExtractorDescriptor::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FeatureExtractorDescriptor::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const FeatureExtractorDescriptor*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const FeatureExtractorDescriptor*>(
       &from));
 }
 
 void FeatureExtractorDescriptor::MergeFrom(const FeatureExtractorDescriptor& from) {
-  FeatureExtractorDescriptor* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.FeatureExtractorDescriptor)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+// @@protoc_insertion_point(class_specific_merge_from_start:chrome_lang_id.FeatureExtractorDescriptor)
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.feature_.MergeFrom(from._impl_.feature_);
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  feature_.MergeFrom(from.feature_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FeatureExtractorDescriptor::CopyFrom(const FeatureExtractorDescriptor& from) {
@@ -889,15 +833,14 @@ void FeatureExtractorDescriptor::CopyFrom(const FeatureExtractorDescriptor& from
 }
 
 bool FeatureExtractorDescriptor::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.feature_))
-    return false;
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(feature_)) return false;
   return true;
 }
 
 void FeatureExtractorDescriptor::InternalSwap(FeatureExtractorDescriptor* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.feature_.InternalSwap(&other->_impl_.feature_);
+  feature_.InternalSwap(&other->feature_);
 }
 
 std::string FeatureExtractorDescriptor::GetTypeName() const {
@@ -908,16 +851,13 @@ std::string FeatureExtractorDescriptor::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chrome_lang_id
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::chrome_lang_id::Parameter*
-Arena::CreateMaybeMessage< ::chrome_lang_id::Parameter >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_lang_id::Parameter* Arena::CreateMaybeMessage< ::chrome_lang_id::Parameter >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_lang_id::Parameter >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_lang_id::FeatureFunctionDescriptor*
-Arena::CreateMaybeMessage< ::chrome_lang_id::FeatureFunctionDescriptor >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_lang_id::FeatureFunctionDescriptor* Arena::CreateMaybeMessage< ::chrome_lang_id::FeatureFunctionDescriptor >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_lang_id::FeatureFunctionDescriptor >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_lang_id::FeatureExtractorDescriptor*
-Arena::CreateMaybeMessage< ::chrome_lang_id::FeatureExtractorDescriptor >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_lang_id::FeatureExtractorDescriptor* Arena::CreateMaybeMessage< ::chrome_lang_id::FeatureExtractorDescriptor >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_lang_id::FeatureExtractorDescriptor >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
